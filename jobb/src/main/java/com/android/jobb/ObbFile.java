@@ -20,6 +20,7 @@
  * 
  * Changes:
  *			- Add support for reading from generic, in-memory byte data
+ *			- Fix resource leak when writing to output file
  * 
  */
 
@@ -224,6 +225,7 @@ public class ObbFile {
 			raf.seek(fileLength);
 
 			if (null == mPackageName || mPackageVersion == -1) {
+				raf.close();
 				throw new RuntimeException("tried to write uninitialized ObbFile data");
 			}
 
